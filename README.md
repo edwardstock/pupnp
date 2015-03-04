@@ -24,7 +24,7 @@ list below, newest first.
 
 February 2015
 
-When a device is connected to multiple subscribed control point (for
+When a device is connected to multiple subscribed control points (for
 example a Media Renderer connected to multiple OpenHome Control Points, or
 to a classical UPnP AV Control Point and to one displaying the current
 title), events are dispatched to all CPs to update information about the
@@ -40,9 +40,11 @@ The modifications changes the way outgoing events are processed: instead of
 dumping them into the thread pool and hoping for the best, they are queued
 on the subscription structure, and only activated when the previous event
 for the same subscription has been processed. This ensure that at most one
-thread can be working for a given subscription.
+thread can be working for a given subscription. In addition, the
+per-subscription queue is limited in size and events are discarded when the
+size is exceeded.
 
-In addition the timeout for the connect() call is controlled and shorter by
+Also, the timeout for the connect() call is controlled and shorter by
 default, instead of being left up to the system default.
 
 
