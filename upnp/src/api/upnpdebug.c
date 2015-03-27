@@ -61,10 +61,10 @@ static FILE *ErrFileHnd = NULL;
 static FILE *InfoFileHnd = NULL;
 
 /*! Name of the error file */
-static const char *errFileName = strdup("IUpnpErrFile.txt");
+static const char *errFileName = NULL;
 
 /*! Name of the info file */
-static const char *infoFileName = strdup("IUpnpInfoFile.txt");
+static const char *infoFileName = NULL;
 
 int UpnpInitLog(void)
 {
