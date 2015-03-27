@@ -121,10 +121,10 @@ extern ithread_mutex_t GlobalClientSubscribeMutex;
  */
 #define SubscribeLock() \
 	UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, \
-		"Trying Subscribe Lock");  \
+		"Trying Subscribe Lock\n");  \
 	ithread_mutex_lock(&GlobalClientSubscribeMutex); \
 	UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, \
-		"Subscribe Lock");
+		"Subscribe Lock\n");
 
 
 /*!
@@ -132,10 +132,10 @@ extern ithread_mutex_t GlobalClientSubscribeMutex;
  */
 #define SubscribeUnlock() \
 	UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, \
-		"Trying Subscribe UnLock"); \
+		"Trying Subscribe UnLock\n"); \
 	ithread_mutex_unlock(&GlobalClientSubscribeMutex); \
 	UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, \
-		"Subscribe UnLock");
+		"Subscribe UnLock\n");
 
 
 /*!

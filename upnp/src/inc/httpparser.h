@@ -476,21 +476,6 @@ int raw_find_str( IN memptr* raw_value, IN const char* str );
 ************************************************************************/
 const char* method_to_str( IN http_method_t method );
 
-/*!
- * \brief Print the HTTP headers.
- */
-#ifdef DEBUG
-void print_http_headers(
-	/*! [in] HTTP Message object. */
-	http_message_t *hmsg);
-#else
-static UPNP_INLINE void print_http_headers(http_message_t *hmsg)
-{
-	return;
-	hmsg = hmsg;
-}
-#endif
-
 #ifdef __cplusplus
 }		/* extern "C" */
 #endif	/* __cplusplus */

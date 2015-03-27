@@ -311,7 +311,6 @@ int http_RecvMessage(
 				UpnpPrintf( UPNP_INFO, HTTP, __FILE__, __LINE__,
 					"<<< (RECVD) <<<\n%s\n-----------------\n",
 					parser->msg.msg.buf );
-				print_http_headers( &parser->msg );
 				if (g_maxContentLength > (size_t)0 && parser->content_length > (unsigned int)g_maxContentLength) {
 					*http_error_code = HTTP_REQ_ENTITY_TOO_LARGE;
 					line = __LINE__;
@@ -344,7 +343,6 @@ int http_RecvMessage(
 				UpnpPrintf( UPNP_INFO, HTTP, __FILE__, __LINE__,
 					"<<< (RECVD) <<<\n%s\n-----------------\n",
 					parser->msg.msg.buf );
-				print_http_headers(&parser->msg);
 				line = __LINE__;
 				ret = 0;
 				goto ExitFunction;
@@ -717,7 +715,6 @@ int http_Download( IN const char *url_str,
 		return ret_code;
 	}
 	UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__, "Response\n");
-	print_http_headers(&response.msg);
 	/* optional content-type */
 	if (content_type) {
 		if (httpmsg_find_hdr(&response.msg, HDR_CONTENT_TYPE, &ctype) ==
@@ -1662,8 +1659,8 @@ int http_MakeMessage(membuffer *buf, int http_major_version,
 			/* C string */
 			s = (char *)va_arg(argp, char *);
 			assert(s);
-			UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-				   "Adding a string : %s\n", s);
+			/* UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
+				   "Adding a string : %s\n", s); */
 			if (membuffer_append(buf, s, strlen(s)))
 				goto error_handler;
 		} else if (c == 'K') {
@@ -1684,8 +1681,8 @@ int http_MakeMessage(membuffer *buf, int http_major_version,
 		} else if (c == 'b') {
 			/* mem buffer */
 			s = (char *)va_arg(argp, char *);
-			UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-				"Adding a char Buffer starting with: %c\n", (int)s[0]);
+			/* UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
+				"Adding a char Buffer starting with: %c\n", (int)s[0]); */
 			assert(s);
 			length = (size_t) va_arg(argp, size_t);
 			if (membuffer_append(buf, s, length))

@@ -40,6 +40,7 @@
 #include "upnp.h"
 #include "upnpdebug.h"
 
+#include <libgen.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -60,19 +61,19 @@ static FILE *ErrFileHnd = NULL;
 static FILE *InfoFileHnd = NULL;
 
 /*! Name of the error file */
-static const char *errFileName = "IUpnpErrFile.txt";
+static const char *errFileName = strdup("IUpnpErrFile.txt");
 
 /*! Name of the info file */
-static const char *infoFileName = "IUpnpInfoFile.txt";
+static const char *infoFileName = strdup("IUpnpInfoFile.txt");
 
 int UpnpInitLog(void)
 {
 	ithread_mutex_init(&GlobalDebugMutex, NULL);
 	if (DEBUG_TARGET == 1) {
-		if ((ErrFileHnd = fopen(errFileName, "a")) == NULL) {
+		if ( errFileName && *errFileName && (ErrFileHnd = fopen(errFileName, "a")) == NULL) {
 			return -1;
 		}
-		if ((InfoFileHnd = fopen(infoFileName, "a")) == NULL) {
+		if (infoFileName && *infoFileName && (InfoFileHnd = fopen(infoFileName, "a")) == NULL) {
 			return -1;
 		}
 	}
@@ -87,21 +88,33 @@ void UpnpSetLogLevel(Upnp_LogLevel log_level)
 void UpnpCloseLog(void)
 {
 	if (DEBUG_TARGET == 1) {
-		fflush(ErrFileHnd);
-		fflush(InfoFileHnd);
-		fclose(ErrFileHnd);
-		fclose(InfoFileHnd);
+		if (ErrFileHnd) {
+			fflush(ErrFileHnd);
+			fclose(ErrFileHnd);
+		}
+		if (InfoFileHnd) {
+			fflush(InfoFileHnd);
+			fclose(InfoFileHnd);
+		}
 	}
 	ithread_mutex_destroy(&GlobalDebugMutex);
 }
 
 void UpnpSetLogFileNames(const char *ErrFileName, const char *InfoFileName)
 {
+	if (errFileName) {
+		free((void*)errFileName);
+		errFileName = NULL;
+	}
 	if (ErrFileName) {
-		errFileName = ErrFileName;
+		errFileName = strdup(ErrFileName);
+	}
+	if (infoFileName) {
+		free((void*)infoFileName);
+		infoFileName = NULL;
 	}
 	if (InfoFileName) {
-		infoFileName = InfoFileName;
+		infoFileName = strdup(InfoFileName);
 	}
 }
 
@@ -136,24 +149,29 @@ void UpnpPrintf(Upnp_LogLevel DLevel,
 			UpnpDisplayFileAndLine(stdout, DbgFileName, DbgLineNo);
 		vfprintf(stdout, FmtStr, ArgList);
 		fflush(stdout);
-	} else if (DLevel == 0) {
-		if (DbgFileName)
-			UpnpDisplayFileAndLine(ErrFileHnd, DbgFileName,
-					       DbgLineNo);
-		vfprintf(ErrFileHnd, FmtStr, ArgList);
-		fflush(ErrFileHnd);
 	} else {
-		if (DbgFileName)
-			UpnpDisplayFileAndLine(InfoFileHnd, DbgFileName,
-					       DbgLineNo);
-		vfprintf(InfoFileHnd, FmtStr, ArgList);
-		fflush(InfoFileHnd);
+		if (ErrFileHnd && DLevel == UPNP_CRITICAL) {
+			if (DbgFileName) {
+				UpnpDisplayFileAndLine(ErrFileHnd, DbgFileName,
+						       DbgLineNo);
+			}
+			vfprintf(ErrFileHnd, FmtStr, ArgList);
+			fflush(ErrFileHnd);
+		}
+		if (InfoFileHnd) {
+			if (DbgFileName) {
+				UpnpDisplayFileAndLine(InfoFileHnd, DbgFileName,
+						       DbgLineNo);
+			}
+			vfprintf(InfoFileHnd, FmtStr, ArgList);
+			fflush(InfoFileHnd);
+ 		}
 	}
 	va_end(ArgList);
 	ithread_mutex_unlock(&GlobalDebugMutex);
 }
 
-FILE *GetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
+FILE *UpnpGetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 {
 	FILE *ret;
 
@@ -161,7 +179,7 @@ FILE *GetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 		ret = NULL;
 	if (!DEBUG_TARGET)
 		ret = stdout;
-	else if (DLevel == 0)
+	else if (DLevel == UPNP_CRITICAL)
 		ret = ErrFileHnd;
 	else
 		ret = InfoFileHnd;
@@ -171,78 +189,26 @@ FILE *GetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 
 void UpnpDisplayFileAndLine(FILE *fd, const char *DbgFileName, int DbgLineNo)
 {
-#define NLINES 2
-#define MAX_LINE_SIZE 512
-#define NUMBER_OF_STARS 80
-	const char *lines[NLINES];
-	char buf[NLINES][MAX_LINE_SIZE];
-	int i;
+	time_t timenow = time(NULL);
+	struct tm localtimenow;
+	char timeprint[20];	/* "YYYY-MM-DD HH:MM:SS" */
 
-	/* Initialize the pointer array */
-	for (i = 0; i < NLINES; i++)
-		lines[i] = buf[i];
-	/* Put the debug lines in the buffer */
-	sprintf(buf[0], "DEBUG - THREAD ID: 0x%lX",
+	localtime_r(&timenow, &localtimenow);
+	strftime(timeprint, sizeof(timeprint), "%F %T", &localtimenow);
+	fprintf(fd, "%s 0x%lX ", timeprint,
 #ifdef WIN32
 		(unsigned long int)ithread_self().p
 #else
 		(unsigned long int)ithread_self()
 #endif
 	    );
-	if (DbgFileName)
-		sprintf(buf[1], "FILE: %s, LINE: %d", DbgFileName, DbgLineNo);
-	/* Show the lines centered */
-	UpnpDisplayBanner(fd, lines, NLINES, NUMBER_OF_STARS);
+	if (DbgFileName) {
+ 		char *filepath = strdup(DbgFileName);
+ 		fprintf(fd, "%s:%d ", basename(filepath), DbgLineNo);
+ 		free(filepath);
+	}
 	fflush(fd);
 }
 
-void UpnpDisplayBanner(FILE * fd,
-		       const char **lines, size_t size, size_t starLength)
-{
-	size_t leftMarginLength = starLength / 2 + 1;
-	size_t rightMarginLength = starLength / 2 + 1;
-	size_t i = 0;
-	size_t LineSize = 0;
-	size_t starLengthMinus2 = starLength - 2;
-
-	char *leftMargin = malloc(leftMarginLength);
-	char *rightMargin = malloc(rightMarginLength);
-	char *stars = malloc(starLength + 1);
-	char *currentLine = malloc(starLength + 1);
-	const char *line = NULL;
-
-	memset(stars, '*', starLength);
-	stars[starLength] = 0;
-	memset(leftMargin, 0, leftMarginLength);
-	memset(rightMargin, 0, rightMarginLength);
-	fprintf(fd, "\n%s\n", stars);
-	for (i = 0; i < size; i++) {
-		LineSize = strlen(lines[i]);
-		line = lines[i];
-		while (LineSize > starLengthMinus2) {
-			memcpy(currentLine, line, starLengthMinus2);
-			currentLine[starLengthMinus2] = 0;
-			fprintf(fd, "*%s*\n", currentLine);
-			LineSize -= starLengthMinus2;
-			line += starLengthMinus2;
-		}
-		leftMarginLength = (starLengthMinus2 - LineSize) / 2;
-		if (LineSize % 2 == 0)
-			rightMarginLength = leftMarginLength;
-		else
-			rightMarginLength = leftMarginLength + 1;
-		memset(leftMargin, ' ', leftMarginLength);
-		memset(rightMargin, ' ', rightMarginLength);
-		leftMargin[leftMarginLength] = 0;
-		rightMargin[rightMarginLength] = 0;
-		fprintf(fd, "*%s%s%s*\n", leftMargin, line, rightMargin);
-	}
-	fprintf(fd, "%s\n\n", stars);
-
-	free(currentLine);
-	free(stars);
-	free(rightMargin);
-	free(leftMargin);
-}
 
 #endif /* DEBUG */

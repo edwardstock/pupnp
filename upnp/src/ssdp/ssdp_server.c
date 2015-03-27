@@ -132,12 +132,12 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
 		NumCopy++;
 		for (i = 0lu;; i++) {
 			UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-				   "Entering new device list with i = %lu\n\n",
+				   "Entering new device list with i = %lu\n",
 				   i);
 			tmpNode = ixmlNodeList_item(SInfo->DeviceList, i);
 			if (!tmpNode) {
 				UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-					   "Exiting new device list with i = %lu\n\n",
+					   "Exiting new device list with i = %lu\n",
 					   i);
 				break;
 			}

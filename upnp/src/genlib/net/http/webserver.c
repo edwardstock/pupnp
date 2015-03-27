@@ -1049,7 +1049,6 @@ static int process_request(
 	size_t dummy;
 	const char *extra_headers = NULL;
 
-	print_http_headers(req);
 	url = &req->uri;
 	assert(req->method == HTTPMETHOD_GET ||
 	       req->method == HTTPMETHOD_HEAD ||
@@ -1415,7 +1414,6 @@ static int http_RecvPostMessage(
 					UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__,
 						"<<< (RECVD) <<<\n%s\n-----------------\n",
 						parser->msg.msg.buf);
-					print_http_headers(&parser->msg);
 					parser->position = POS_COMPLETE;
 				} else {
 					/* partial msg or response */
