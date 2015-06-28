@@ -40,7 +40,6 @@
 #include "upnp.h"
 #include "upnpdebug.h"
 
-#include <libgen.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -186,15 +185,30 @@ FILE *UpnpGetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 
 	return ret;
 }
+#ifdef WIN32
+const char *basename(const char *path)
+{
+	const char *cp = strrchr(path, '\\');
+	if (cp)
+		return cp;
+	return NULL;
+}
+#endif
 
 void UpnpDisplayFileAndLine(FILE *fd, const char *DbgFileName, int DbgLineNo)
 {
 	time_t timenow = time(NULL);
-	struct tm localtimenow;
+	struct tm *tmp;
 	char timeprint[20];	/* "YYYY-MM-DD HH:MM:SS" */
 
-	localtime_r(&timenow, &localtimenow);
-	strftime(timeprint, sizeof(timeprint), "%F %T", &localtimenow);
+#ifdef WIN32
+	tmp = localtime(&timenow);
+#else
+	struct tm localtimenow;
+	tmp = localtime_r(&timenow, &localtimenow);
+#endif
+
+	strftime(timeprint, sizeof(timeprint), "%F %T", tmp);
 	fprintf(fd, "%s 0x%lX ", timeprint,
 #ifdef WIN32
 		(unsigned long int)ithread_self().p
