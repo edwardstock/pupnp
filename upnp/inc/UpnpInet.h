@@ -15,11 +15,10 @@
 
 #ifdef WIN32
 	#include <stdarg.h>
-	#ifndef UPNP_USE_MSVCPP
-		/* Removed: not required (and cause compilation issues) */
-		#include <winbase.h>
-		#include <windef.h>
-	#endif
+        #if defined(__MINGW32__) || defined (__MINGW64__)
+        /* This is necessary to get the definitions for PIP_ADAPTER_ADDRESSES */
+        #define _WIN32_WINNT 0x0502
+        #endif
 	#include <winsock2.h>
 	#include <iphlpapi.h>
 	#include <ws2tcpip.h>

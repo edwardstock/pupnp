@@ -36,6 +36,8 @@
 
 #if !defined(WIN32)
 	#include <sys/param.h>
+#else
+	#include <windows.h>
 #endif
 
 #include "ThreadPool.h"
