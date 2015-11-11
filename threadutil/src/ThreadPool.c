@@ -34,7 +34,7 @@
  * \file
  */
 
-#if !defined(WIN32)
+#if !defined(_MSC_VER)
 	#include <sys/param.h>
 #else
 	#include <windows.h>
@@ -265,7 +265,7 @@ static int SetPolicyType(
 #elif defined(__OSX__) || defined(__APPLE__) || defined(__NetBSD__)
 	setpriority(PRIO_PROCESS, 0, 0);
 	retVal = 0;
-#elif defined(WIN32)
+#elif defined(_MSC_VER)
 	retVal = sched_setscheduler(0, in);
 #elif defined(_POSIX_PRIORITY_SCHEDULING) && _POSIX_PRIORITY_SCHEDULING > 0
 	struct sched_param current;
@@ -417,11 +417,11 @@ static void SetSeed(void)
 	struct timeval t;
   
 	gettimeofday(&t, NULL);
-#if defined(WIN32)
+#if defined(_MSC_VER)
 	srand((unsigned int)t.tv_usec + (unsigned int)ithread_get_current_thread_id().p);
 #elif defined(BSD) || defined(__OSX__) || defined(__APPLE__) || defined(__FreeBSD_kernel__)
 	srand((unsigned int)t.tv_usec + (unsigned int)ithread_get_current_thread_id());
-#elif defined(__linux__) || defined(__sun) || defined(__CYGWIN__) || defined(__GLIBC__)
+#elif defined(__linux__) || defined(__sun) || defined(__CYGWIN__) || defined(__GLIBC__) || defined(__MINGW32__) || defined(__MINGW64__)
 	srand((unsigned int)t.tv_usec + (unsigned int)ithread_get_current_thread_id());
 #else
 	{
@@ -656,7 +656,13 @@ static int CreateWorker(
 		rc = ithread_detach(temp);
 		/* ithread_detach will return EINVAL if thread has been
 		 successfully detached by ithread_create */
-		if (rc == EINVAL)
+		if (rc == EINVAL
+                    /* Seems that mingw has a bug here... At least version:
+                       Qt/Tools/mingw492_32 */
+#if defined(__MINGW32__) || defined(__MINGW64__)
+                    || rc == ESRCH
+#endif
+                    )
 			rc = 0;
 		tp->pendingWorkerThreadStart = 1;
 		/* wait until the new worker thread starts */
@@ -1235,7 +1241,7 @@ int ThreadPoolGetStats(ThreadPool *tp, ThreadPoolStats *stats)
 }
 #endif /* STATS */
 
-#ifdef WIN32
+#ifdef _MSC_VER
 	#if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
 		#define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
 	#else

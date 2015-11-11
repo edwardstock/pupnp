@@ -61,7 +61,9 @@
 #endif
 
 #ifdef WIN32
+        #ifndef strncasecmp
 	#define strncasecmp strnicmp
+        #endif
 #else
 	/* Other systems have strncasecmp */
 #endif

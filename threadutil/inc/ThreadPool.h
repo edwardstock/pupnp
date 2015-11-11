@@ -45,7 +45,7 @@
 
 #include <errno.h>
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 	#include <time.h>
 	struct timezone
 	{

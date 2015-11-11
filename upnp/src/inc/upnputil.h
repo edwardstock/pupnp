@@ -126,8 +126,12 @@ void linecopylen(
 		#ifndef EADDRINUSE		/* VS2010 has this defined */
 			#define EADDRINUSE		WSAEADDRINUSE
 		#endif
-		#define strcasecmp		stricmp
-		#define strncasecmp		strnicmp
+                #ifndef strcasecmp
+		    #define strcasecmp		stricmp
+                #endif
+                #ifndef strncasecmp
+		    #define strncasecmp		strnicmp
+                #endif
 		#define sleep(a)		Sleep((a)*1000)
 		#define usleep(a)		Sleep((a)/1000)
 		#define strerror_r(a,b,c)	(strerror_s((b),(c),(a)))

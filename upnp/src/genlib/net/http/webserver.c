@@ -547,8 +547,8 @@ static int get_file_info(
 	info->last_modified = s.st_mtime;
 	rc = get_content_type(filename, &info->content_type);
 	UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__,
-		"file info: %s, length: %lld, last_mod=%s readable=%d\n",
-		filename, (long long)info->file_length,
+		"file info: %s, length: %ld, last_mod=%s readable=%d\n",
+		filename, (long)info->file_length,
 		web_server_asctime_r(http_gmtime_r(&info->last_modified, &date), buffer),
 		info->is_readable);
 

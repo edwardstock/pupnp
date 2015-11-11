@@ -23,7 +23,9 @@
 #include <string.h> /* for strlen(), strdup() */
 
 #ifdef WIN32
+#ifndef strcasecmp
 	#define strcasecmp stricmp
+#endif
 #else
 	/* Other systems have strncasecmp */
 #endif

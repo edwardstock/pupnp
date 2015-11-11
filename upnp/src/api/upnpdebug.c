@@ -188,10 +188,15 @@ FILE *UpnpGetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 #ifdef WIN32
 const char *basename(const char *path)
 {
-	const char *cp = strrchr(path, '\\');
-	if (cp)
-		return cp;
-	return NULL;
+	const char *cpb = strrchr(path, '\\');
+	const char *cpf = strrchr(path, '/');
+	if (cpb && cpf)
+            return cpb - path > cpf - path ? cpb: cpf;
+        if (cpb)
+            return cpb+1;
+        if (cpf)
+            return cpf+1;
+	return path;
 }
 #endif
 
@@ -208,9 +213,9 @@ void UpnpDisplayFileAndLine(FILE *fd, const char *DbgFileName, int DbgLineNo)
 	tmp = localtime_r(&timenow, &localtimenow);
 #endif
 
-	strftime(timeprint, sizeof(timeprint), "%F %T", tmp);
+	strftime(timeprint, sizeof(timeprint), "%Y-%m-%d %H:%M:%S", tmp);
 	fprintf(fd, "%s 0x%lX ", timeprint,
-#ifdef WIN32
+#if defined(WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 		(unsigned long int)ithread_self().p
 #else
 		(unsigned long int)ithread_self()

@@ -836,7 +836,7 @@ static int create_ssdp_sock_v4(
 		strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
 		UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
 			   "Error in bind(), addr=0x%08X, port=%d: %s\n",
-			   INADDR_ANY, SSDP_PORT, errorBuffer);
+			   (unsigned int)INADDR_ANY, SSDP_PORT, errorBuffer);
 		ret = UPNP_E_SOCKET_BIND;
 		goto error_handler;
 	}

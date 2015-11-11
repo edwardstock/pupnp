@@ -3264,7 +3264,7 @@ int UpnpGetIfInfo(const char *IfName)
 		}
 		if (ifname_found == 0) {
 			/* We have found a valid interface name. Keep it. */
-#ifdef UPNP_USE_MSVCPP
+#if 1 /*def UPNP_USE_MSVCPP*/
 			/*
 			 * Partial fix for VC - friendly name is wchar string,
 			 * but currently gIF_NAME is char string. For now try
@@ -3281,7 +3281,7 @@ int UpnpGetIfInfo(const char *IfName)
 #endif
 			ifname_found = 1;
 		} else {
-#ifdef UPNP_USE_MSVCPP
+#if 1 /*def UPNP_USE_MSVCPP*/
 			/*
 			 * Partial fix for VC - friendly name is wchar string,
 			 * but currently gIF_NAME is char string. For now try
