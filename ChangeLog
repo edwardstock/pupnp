@@ -1,3 +1,21 @@
+2016-01-07 Nick Leverton <nick(at)leverton.org>
+
+	SF Bug Tracker #130, Creator: Klaus Fischer
+	Miniserver uses INADDR_ANY instead of HostIP
+	https://sourceforge.net/p/pupnp/bugs/127/
+
+	The internal miniserver.c uses INADDR_ANY instead of the HostIP/IfName
+	provided when initializing libupnp. But, this HostIP/IfName gets used
+	for the UDP socket when multicasting SSDP messages.  Because of this,
+	miniserver may end up sending from different IP address than ssdpserver.
+	This patch causes miniserver to use the already known interface address.
+
+2016-01-07 Marcelo Roberto Jimenez <mroberto(at)users.sourceforge.net>
+
+	SF Bug Tracker #130, Creator: Shaddy Baddah
+	infinite loop in UpnpGetIfInfo() under WIN32
+
+	Original code makes no sense. This patch should fix it.
 
 2015-02-06 Jean-Francois Dockes <jf@dockes.org>
 
@@ -11,7 +29,6 @@
     accepting them.
 
 2015-02-03 Jean-Francois Dockes <jf@dockes.org>
-
     genaInitNotify()/genaInitNotifyExt() and
     genaNotifyAll()/genaNotifyAllExt() are relatively complicated methods
     which only differ by the format of an input parameter. This update
@@ -28,13 +45,6 @@
 *******************************************************************************
 Version 1.6.20
 *******************************************************************************
-
-2016-01-07 Marcelo Roberto Jimenez <mroberto(at)users.sourceforge.net>
-
-	SF Bug Tracker #130, Creator: Shaddy Baddah
-	infinite loop in UpnpGetIfInfo() under WIN32
-
-	Original code makes no sense. This patch should fix it.
 
 2015-02-04 Shaun Marko <semarko@users.sf.net>
 
