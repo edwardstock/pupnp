@@ -19,7 +19,9 @@ endif ()
 set(CMAKE_SYSTEM_PREFIX_PATH ${CMAKE_PREFIX_PATH})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic -std=c++98")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
+get_cmake_property(_variableNames VARIABLES)
+
 
 if (UPNP_USE_MSVCPP)
 	add_definitions(-DUPNP_USE_MSVCPP)
