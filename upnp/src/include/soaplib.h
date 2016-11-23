@@ -32,6 +32,9 @@
 #ifndef SOAPLIB_H
 #define SOAPLIB_H
 
+#include "httpparser.h"
+#include "sock.h"
+
 /*!
  * \file
  */
