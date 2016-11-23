@@ -51,6 +51,10 @@
 #include "UpnpInet.h"		/* for SOCKET, netinet/in */
 #include "UpnpGlobal.h"		/* for UPNP_INLINE */
 
+#ifdef HAVE_SYS_SOCKET_H
+	#include <sys/socket.h>
+#endif
+
 /* The following are not defined under winsock.h */
 #ifndef SD_RECEIVE
 	#define SD_RECEIVE      0x00

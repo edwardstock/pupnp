@@ -12,10 +12,10 @@
  */
 
 #include "UpnpUniStd.h" /* for close() */
+#include <stdarg.h>
 
-#if defined(WIN32) || defined(__CYGWIN__)
-	#define USE_SYS_TYPES_FD_SET 1
-	#include <stdarg.h>
+#if defined(WIN32)
+
 	#include <winsock2.h>
 	#include <iphlpapi.h>
 	#include <ws2tcpip.h>

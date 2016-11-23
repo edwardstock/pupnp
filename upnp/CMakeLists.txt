@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 project(upnp)
 
-set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/include)
-set(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../prebuild)
-set(ARHCIVE_OUTPUT_PATH ${LIBRARY_OUTPUT_PATH})
-
 set(SOURCE_FILES
     ../include/UpnpGlobal.h
     ../include/upnp.h
@@ -86,7 +81,11 @@ set(SOURCE_FILES
     src/win_dll.c
     )
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/include)
+set(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../prebuild/${CMAKE_SYSTEM_NAME})
+set(ARHCIVE_OUTPUT_PATH ${LIBRARY_OUTPUT_PATH}/${CMAKE_SYSTEM_NAME})
+
 
 add_library(upnp ${LIB_BUILD_TYPE} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC src/include)

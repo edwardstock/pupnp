@@ -1,8 +1,9 @@
+set(MIN_CMAKE_VERSION 2.8.10)
 project(PUPNP)
-set(MIN_CMAKE_VERSION 2.8)
 cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_LEGACY_CYGWIN_WIN32 1)
 
 option(CROSS_COMPILE_WIN32 "Whether to cross-compile win32 lib" OFF)
 
