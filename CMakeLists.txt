@@ -16,8 +16,13 @@ if (CROSS_COMPILE_WIN32)
 endif ()
 
 set(CMAKE_SYSTEM_PREFIX_PATH ${CMAKE_PREFIX_PATH})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
+
+if (UPNP_USE_MSVCPP)
+	add_definitions(-DUPNP_USE_MSVCPP)
+endif ()
 
 set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/prebuild)

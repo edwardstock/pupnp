@@ -48,7 +48,7 @@
 extern "C" {
 #endif
 
-#ifndef HAVE_PTHREAD
+#if !defined(HAVE_PTHREAD) && !defined(UPNP_USE_MSVCPP)
 	#error "pthreads are required"
 #endif
 

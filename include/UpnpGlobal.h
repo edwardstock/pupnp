@@ -17,6 +17,11 @@
 #endif
 
 #ifdef WIN32
+#ifdef UPNP_USE_MSVCPP
+	#define HAVE_STRUCT_TIMESPEC
+	#define hAVE_STRUCT_SOCKADDR
+#endif
+
 /*
  * EXPORT_SPEC
  */

@@ -17,6 +17,7 @@
 #if defined(WIN32)
 
 	#include <winsock2.h>
+	#include <windows.h>
 	#include <iphlpapi.h>
 	#include <ws2tcpip.h>
 

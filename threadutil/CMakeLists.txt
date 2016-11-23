@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 project(threadutil)
 
 
-
 set(SOURCE_FILES
     ../include/UpnpGlobal.h
     ../include/FreeList.h
@@ -25,7 +24,12 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../prebuild/${CMAKE_SYSTEM_N
 set(ARHCIVE_OUTPUT_PATH ${LIBRARY_OUTPUT_PATH}/${CMAKE_SYSTEM_NAME})
 
 add_library(${PROJECT_NAME} ${LIB_BUILD_TYPE} ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} pthread)
+
+if (UPNP_USE_MSVCPP)
+	target_link_libraries(${PROJECT_NAME} pthreadVC2)
+else ()
+	target_link_libraries(${PROJECT_NAME} pthread)
+endif ()
 
 install(TARGETS threadutil
         RUNTIME DESTINATION lib

@@ -164,6 +164,12 @@
 #define UPNP_HAVE_WEBSERVER ENABLE_WEBSERVER
 #endif
 
+#ifdef UPNP_USE_MSVCPP
+typedef unsigned long off_t
+#define strdup _strdup
+#endif
+
+
 
 /* Do not use pthread_rwlock_t */
 #define UPNP_USE_RWLOCK 1

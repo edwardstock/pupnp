@@ -4,6 +4,7 @@
 #define IXMLDEBUG_H
 
 #include "ixml.h"
+#include "UpnpGlobal.h"
 
 
 /*!
@@ -37,9 +38,7 @@ void IxmlPrintf(
 #endif
 ;
 #else /* DEBUG */
-static UPNP_INLINE void IxmlPrintf(
-	const char *FmtStr,
-	...) {
+static UPNP_INLINE void IxmlPrintf(const char *FmtStr, ...) {
 	FmtStr = FmtStr;
 }
 #endif /* DEBUG */
