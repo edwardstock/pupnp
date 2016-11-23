@@ -1,5 +1,8 @@
 # Portable libupnp performed to cmake and mingw64 with fixes from https://github.com/medoc92/pupnp16
 
+### Latest version 1.6.20
+Pre-builds available here https://github.com/edwardstock/pupnp/releases/tag/1.6.20
+
 ## What was done
 * Fully refactored project structure
 * Marcos fixes
