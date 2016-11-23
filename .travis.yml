@@ -1,0 +1,13 @@
+dist: trusty
+sudo: required
+language: c
+compiler:
+  - gcc
+
+install:
+  - sudo apt-get update
+  - sudo apt-get install pthread
+
+script:
+  - sh scripts/build.sh shared
+  - sh scripts/build.sh static
