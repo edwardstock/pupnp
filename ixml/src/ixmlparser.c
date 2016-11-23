@@ -37,11 +37,7 @@
 
 
 #include "ixmlparser.h"
-#include "ixmldebug.h"
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
 
 #if defined(WIN32) && !defined(strncasecmp)
 	#define strncasecmp strnicmp

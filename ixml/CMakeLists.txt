@@ -22,7 +22,7 @@ set(SOURCE_FILES
     test/test_document.c
     )
 
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
+add_library(${PROJECT_NAME} ${LIB_BUILD_TYPE} ${SOURCE_FILES})
 
 install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION lib

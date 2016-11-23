@@ -38,9 +38,14 @@
  * \file
  */
 
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include <stddef.h>
 
 #include "ixmlmembuf.h"
 #include "ixml.h"
+#include "ixmldebug.h"
 
 
 /* Parser definitions */

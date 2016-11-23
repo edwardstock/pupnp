@@ -88,7 +88,7 @@ set(SOURCE_FILES
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-add_library(upnp SHARED ${SOURCE_FILES})
+add_library(upnp ${LIB_BUILD_TYPE} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC src/include)
 if (WIN32)
 	target_link_libraries(upnp wsock32 ws2_32)

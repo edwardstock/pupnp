@@ -21,7 +21,7 @@ set(SOURCE_FILES
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_INCLUDE_DIR}")
 
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
+add_library(${PROJECT_NAME} ${LIB_BUILD_TYPE} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} pthread)
 
 install(TARGETS threadutil

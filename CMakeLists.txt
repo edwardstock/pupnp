@@ -26,6 +26,12 @@ include_directories(${CMAKE_PREFIX_PATH}/include)
 include_directories("${PROJECT_INCLUDE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
 
+if (ENABLE_STATIC)
+	set(LIB_BUILD_TYPE STATIC)
+else ()
+	set(LIB_BUILD_TYPE SHARED)
+endif ()
+
 include(cmakes/autoconfig.cmake)
 include(cmakes/options.cmake)
 
