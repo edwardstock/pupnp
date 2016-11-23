@@ -4,7 +4,7 @@
  * \file
  */
 
-
+typedef int make_iso_compiler_happy;
 #ifdef DEBUG
 void IxmlPrintf(
 	const char *DbgFileName,
