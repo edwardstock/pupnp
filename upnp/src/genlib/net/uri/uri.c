@@ -119,10 +119,10 @@ int is_escaped(
 }
 
 int replace_escaped(char *in, size_t index, size_t *max) {
-	int tempInt = 0;
+	unsigned int tempInt = 0;
 	char tempChar = 0;
-	size_t i = (size_t) 0;
-	size_t j = (size_t) 0;
+	size_t i = 0;
+	size_t j = 0;
 
 	if (in[index] == '%' && isxdigit(in[index + (size_t) 1]) && isxdigit(in[index + (size_t) 2])) {
 		/* Note the "%2x", makes sure that we convert a maximum of two
