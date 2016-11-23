@@ -3,6 +3,7 @@ project(PUPNP)
 cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
 set(CMAKE_LEGACY_CYGWIN_WIN32 1)
 
 option(CROSS_COMPILE_WIN32 "Whether to cross-compile win32 lib" OFF)
@@ -18,7 +19,7 @@ endif ()
 set(CMAKE_SYSTEM_PREFIX_PATH ${CMAKE_PREFIX_PATH})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic -std=c++98")
 
 if (UPNP_USE_MSVCPP)
 	add_definitions(-DUPNP_USE_MSVCPP)
