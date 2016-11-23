@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 project(upnp)
 
 set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/include)

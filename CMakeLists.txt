@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.6)
 project(PUPNP)
+set(MIN_CMAKE_VERSION 2.8)
+cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 
 set(CMAKE_CXX_STANDARD 11)
 

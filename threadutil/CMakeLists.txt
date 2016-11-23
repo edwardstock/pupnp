@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 project(threadutil)
 
 set(PROJECT_INCLUDE_DIR ${PROJECT_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/inc)
