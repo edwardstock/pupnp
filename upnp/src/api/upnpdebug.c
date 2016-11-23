@@ -33,6 +33,7 @@
  * \file
  */
 
+typedef int make_iso_compiler_happy;
 #ifdef DEBUG
 
 /*! Mutex to synchronize all the log file opeartions in the debug mode */
