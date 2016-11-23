@@ -36,9 +36,12 @@
 /*!
  * \file
  */
-
 #include "upnp.h"
 #include <errno.h>
+
+#ifdef HAVE_STRING_H
+	#include <string.h>
+#endif
 
 /* usually used to specify direction of parameters in functions */
 #ifndef IN

@@ -33,9 +33,19 @@
 #ifndef THREADPOOL_H
 #define THREADPOOL_H
 
+#if !defined(_MSC_VER)
+	#include <sys/param.h>
+#else
+	#include <windows.h>
+#endif
+
 /*!
  * \file
  */
+#include <assert.h>
+#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
 
 #include "FreeList.h"
 #include "ithread.h"
@@ -43,7 +53,9 @@
 #include "UpnpInet.h"
 #include "UpnpGlobal.h" /* for UPNP_INLINE, EXPORT_SPEC */
 
-#include <errno.h>
+#ifdef HAVE_STRING_H
+	#include <string.h> // for memset
+#endif
 
 #if defined(WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
 #include <time.h>

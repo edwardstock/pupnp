@@ -36,11 +36,16 @@
 /*!
  * \file
  */
-
+#include <stdarg.h>
+#include <assert.h>
 #include "LinkedList.h"
 #include "membuffer.h"
 #include "uri.h"
 #include "upnputil.h"
+#include "strintmap.h"
+#include "statcodes.h"
+#include "upnpdebug.h"
+
 
 /* private types */
 

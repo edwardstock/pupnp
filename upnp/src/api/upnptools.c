@@ -41,6 +41,9 @@
 
 #if EXCLUDE_DOM == 0
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
 #include "upnp.h"
 #include "upnptools.h"
 

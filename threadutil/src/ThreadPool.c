@@ -33,17 +33,7 @@
 /*!
  * \file
  */
-
-#if !defined(_MSC_VER)
-	#include <sys/param.h>
-#else
-	#include <windows.h>
-#endif
-
 #include "ThreadPool.h"
-
-#include <assert.h>
-#include <stdio.h>
 
 /*!
  * \brief Returns the difference in milliseconds between two timeval structures.

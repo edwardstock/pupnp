@@ -20,6 +20,9 @@
  * this software for any purpose.
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include "UpnpInet.h"
 #include "sysdep.h"
 
 /*! . */

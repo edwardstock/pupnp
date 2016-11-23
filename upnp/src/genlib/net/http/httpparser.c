@@ -38,12 +38,7 @@
 
 #define _GNU_SOURCE    /* For strcasestr() in string.h */
 
-#include "../../../include/strintmap.h"
 #include "../../../include/httpparser.h"
-#include "../../../include/statcodes.h"
-#include "upnpdebug.h"
-
-#include <assert.h>
 
 /* entity positions */
 

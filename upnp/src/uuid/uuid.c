@@ -25,10 +25,6 @@
 
 #include "../include/uuid.h"
 
-#include "../include/UpnpInet.h"
-
-#include <stdio.h>
-
 /* various forward declarations. */
 static int read_state(uint16_t *clockseq,
                       uuid_time_t *timestamp, uuid_node_t *node);

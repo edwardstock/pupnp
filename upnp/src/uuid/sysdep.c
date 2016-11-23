@@ -23,7 +23,6 @@
 
 #include "../include/sysdep.h"
 
-#include "UpnpInet.h"
 
 /*!
  * \brief System dependent call to get IEEE node ID.

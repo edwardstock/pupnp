@@ -41,6 +41,13 @@
  * \file
  */
 
+#include <assert.h>
+#include <fcntl.h>
+
+#include "unixutil.h"	/* for socklen_t, EAFNOSUPPORT */
+#include "upnp.h"
+#include "upnpdebug.h"
+#include "upnputil.h"
 #include "UpnpInet.h"		/* for SOCKET, netinet/in */
 #include "UpnpGlobal.h"		/* for UPNP_INLINE */
 

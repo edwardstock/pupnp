@@ -41,12 +41,6 @@
  */
 
 #include "../../include/sock.h"
-#include "../../include/unixutil.h"	/* for socklen_t, EAFNOSUPPORT */
-#include "upnp.h"
-#include "upnpdebug.h"
-#include "../../include/upnputil.h"
-
-#include <assert.h>
 
 #ifndef MSG_NOSIGNAL
 #define MSG_NOSIGNAL 0

@@ -37,7 +37,7 @@
  * different options.
  */
 
-#include "upnp.h"
+
 #include "../../include/upnputil.h"
 
 void linecopy(char dest[LINE_SIZE], const char *src) {

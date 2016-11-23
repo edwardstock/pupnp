@@ -5,6 +5,7 @@ include(CheckSymbolExists)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/autoconfig.in.h ${CMAKE_CURRENT_SOURCE_DIR}/include/autoconfig.h)
 
 check_include_files("arpa/inet.h" HAVE_ARPA_INET_H)
+check_include_files("stddef.h;linux/stddef.h" HAVE_STDDEF_H)
 check_include_files("dlfcn.h" HAVE_DLFCN_H)
 check_include_files("fcntl.h" HAVE_FCNTL_H)
 check_include_files("inttypes.h" HAVE_INTTYPES_H)
@@ -34,8 +35,3 @@ check_function_exists("strndup" HAVE_STRNDUP)
 check_function_exists("strnlen" HAVE_STRNLEN)
 check_function_exists("vprintf" HAVE_VPRINTF)
 check_function_exists("_doprnt" HAVE_DOPRNT)
-
-
-check_symbol_exists("off_t" "sys/types.h" HAVE_OFF_T)
-check_symbol_exists("size_t" "sys/types.h;stddef.h;cdefs.h;types.h" HAVE_SIZE_T)
-check_symbol_exists("socklen_t" "sys/socket.h;winsock2.h;w32api/winsock2.h;ws2tcpip.h" HAVE_SOCKLEN_T)

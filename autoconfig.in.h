@@ -1,6 +1,8 @@
 #ifndef UPNP_AUTOCONFIG_H
 #define UPNP_AUTOCONFIG_H
 
+/* Define to 1 if you have the <stddef.h> header file. */
+#cmakedefine HAVE_STDDEF_H 1
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #cmakedefine HAVE_ARPA_INET_H 1

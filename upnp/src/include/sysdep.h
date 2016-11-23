@@ -24,6 +24,8 @@
  * \file
  */
 
+#include <string.h>
+#include "UpnpInet.h"
 #include "ithread.h"
 
 /* change to point to where MD5 .h's live */

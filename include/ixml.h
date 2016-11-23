@@ -45,6 +45,10 @@
 
 #include "UpnpGlobal.h" /* For EXPORT_SPEC */
 
+#ifdef HAVE_STDDEF_H
+	#include <stddef.h>
+#endif
+
 /* Define BOOL. */
 #ifndef __OBJC__
 typedef int BOOL;
