@@ -2,18 +2,24 @@ dist: trusty
 sudo: required
 language: c++
 compiler:
-  - gcc
-
+- gcc
+- clang
 script:
-  - sh scripts/build.sh shared
-  - sh scripts/build.sh static
-  - sh scripts/make_dist
+- chmod +x scripts/*
+- bash scripts/build.sh shared
+- bash scripts/build.sh static
+before_deploy:
+- echo "Creating distributives"
+- bash scripts/make_dist.sh shared
+- bash scripts/make_dist.sh static
 deploy:
-  provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file:
-    - "prebuild/$(uname)/"
-    - "FILE 2"
   skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: WHEp28PN0DwJjFD3uMluE2QMgZqAE+FPhLzS9DGgTvxf9OSWjz0244kpSKlnKZ97iKLFM+Fy8V+ZAWR2NmTKgHra123Phu+oTmprC7bYgeatl7y3A85hndN4Q3dTgGLLtAG0H/MXEvkdghppCitfsoZqZK71+JNGVmL+3uu0gyDXyroCH0iRozQTQ/3t5ASbrmsRueRQT3cpVYnNsOoFCdbig4bNmjyxxi2H4FU4FE5dTWSkRidfqwrFlX3CQFWzgUPVu+WnIUDOiFiK9Yu5tdCaMf0nxItbS1M9iw2+jprb+JyY7RX3HYKZl0yoKCNPEJqYlXR/u1b5H8/CoEuC104wgglsm6Hp6vAh4NtSMXshYWw/YgDA1b80mW0R37IHT2phBMsqz8Wp1DCCIzG5QdneHI/FfS7IsAY5j2RW9kp+s67e8vQe0UTZYwC2RGeYRmeaK41SXz4shbwLvH5xsCVH0kzuR7bxYm9sPhDmgxY3nMfnCPGv40GrDbbn7p7w/vbndvj1y4KxXv4Yjs3rosQEwUDVDhCxgAM2XHp8ZA7Xr/tU/IYDiXU+IoGfmF6fRCAidVfaDUsdfsOTpn8HtWDQoiuF+GGTJEC1TNjEKeKqRvB5837rskmY4eKYD4+wJZm7kMQVmLxtCGDwZ1nDqZciAWGiPF0JF3CaCq+QQL4=
+  file:
+    - "${DEP_SHARED}"
+    - "${DEP_STATIC}"
   on:
     tags: true
+    repo: edwardstock/pupnp
