@@ -1,4 +1,4 @@
-set(MIN_CMAKE_VERSION 2.8.10)
+set(MIN_CMAKE_VERSION 3.0)
 project(PUPNP)
 cmake_minimum_required(VERSION ${MIN_CMAKE_VERSION})
 
