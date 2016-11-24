@@ -5,7 +5,7 @@ METHOD=$2
 OS=$(uname -s)
 ARCH=$(uname -m)
 VERSION=$(git describe --tags)
-ARCHIVER="tar -cvf"
+ARCHIVER="zip -9"
 
 if [ $BUILD_TYPE != "shared" ] && [ $BUILD_TYPE != "static"  ]
 then
@@ -18,7 +18,7 @@ then
 	CC=gcc # default compiler is gcc
 fi
 
-DIST="libupnp_${ARCH}_${VERSION}_${CC}_${BUILD_TYPE}.tar.gz"
+DIST="libupnp_${ARCH}_${VERSION}_${CC}_${BUILD_TYPE}.zip"
 
 if [ "${METHOD}" == "getname" ]
 then
