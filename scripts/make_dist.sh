@@ -5,7 +5,7 @@ METHOD=$2
 OS=$(uname -s)
 ARCH=$(uname -m)
 VERSION=$(git describe --tags)
-ARCHIVER="tar -zcvf"
+ARCHIVER="tar -cvf"
 
 if [ $BUILD_TYPE != "shared" ] && [ $BUILD_TYPE != "static"  ]
 then
