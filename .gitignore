@@ -106,12 +106,13 @@ docs/doxygen
 build/vc10
 build/vc12
 /pthreads
-build
+
 
 include/autoconfig.h
 cmake-build-*/
 build/
 build*/
+dist*/
 ixml/CMakeFiles/
 ixml/cmake_install.cmake
 threadutil/CMakeFiles/
