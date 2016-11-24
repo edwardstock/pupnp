@@ -18,7 +18,7 @@ then
 	CC=gcc # default compiler is gcc
 fi
 
-DIST="libupnp_${ARCH}_${VERSION}_${CC}_${BUILD_TYPE}.zip"
+DIST="libupnp_${VERSION}_${BUILD_TYPE}_${CC}_${ARCH}_.zip"
 
 if [ "${METHOD}" == "getname" ]
 then
@@ -34,8 +34,14 @@ if [ $BUILD_TYPE == "shared" ]
 then
 	FILES=$(find ./prebuild/${OS} -name "*.dll" -o -name "*.dll.a" -o -name "*.so" -o -name "*.dylib")
 else
-	FILES=$(rm -f ./prebuild/${OS}/*.dll.a && find ./prebuild/${OS} -name "*.a")
+	rm -f ./prebuild/${OS}/*.dll.a
+	FILES=$(find ./prebuild/${OS} -name "*.a")
 fi
+
+zip --help
+ls -lsa prebuild/${OS}
+echo -e "Archiver ${ARCHIVER}\n"
+echo -e "Files: ${FILES}\n"
 
 `${ARCHIVER} ${FILES}`
 

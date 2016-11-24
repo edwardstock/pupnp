@@ -5,7 +5,6 @@ compiler:
 - gcc
 - clang
 script:
-- sudo apt-get install zip
 - chmod +x scripts/*
 - bash scripts/build.sh shared
 - bash scripts/build.sh static
