@@ -4,8 +4,16 @@ language: c++
 compiler:
   - gcc
 
-install:
-
 script:
   - sh scripts/build.sh shared
   - sh scripts/build.sh static
+  - sh scripts/make_dist
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file:
+    - "prebuild/$(uname)/"
+    - "FILE 2"
+  skip_cleanup: true
+  on:
+    tags: true
