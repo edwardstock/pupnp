@@ -1,10 +1,17 @@
 # Portable libupnp performed to cmake and mingw64 with fixes from https://github.com/medoc92/pupnp16
 
-### Latest version 1.6.20
+### Latest version 1.6.21
 
 [![Build Status](https://travis-ci.org/edwardstock/pupnp.svg?branch=master)](https://travis-ci.org/edwardstock/pupnp)
 
-Pre-builds available here https://github.com/edwardstock/pupnp/releases/tag/1.6.20
+Pre-builds available here https://github.com/edwardstock/pupnp/releases/tag/1.6.21
+
+## News
+* fixed clang compiling
+* cygwin64 is working too
+* other small fixes
+
+Latest release look at [releases](https://github.com/edwardstock/pupnp/releases)
 
 ## What was done
 * Fully refactored project structure
