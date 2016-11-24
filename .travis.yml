@@ -12,8 +12,8 @@ before_deploy:
 - echo "Creating distributives"
 - bash scripts/make_dist.sh shared
 - bash scripts/make_dist.sh static
-- export DEP_SHARED="$(scripts/make_dist.sh shared getname)"
-- export DEP_STATIC="$(scripts/make_dist.sh static getname)"
+- export DEP_SHARED="$(bash scripts/make_dist.sh shared getname)"
+- export DEP_STATIC="$(bash scripts/make_dist.sh static getname)"
 
 deploy:
   skip_cleanup: true

@@ -26,20 +26,17 @@ then
     exit 0
 fi
 
-mkdir dist
+mkdir -p dist
 
 ARCHIVER="${ARCHIVER} dist/${DIST}"
 
-if [ $BUILD_TYPE == "shared" ]
+if [ "${BUILD_TYPE}" == "shared" ]
 then
 	FILES=$(find ./prebuild/${OS} -name "*.dll" -o -name "*.dll.a" -o -name "*.so" -o -name "*.dylib" | tr '\n' ' ')
 else
 	rm -f ./prebuild/${OS}/*.dll.a
 	FILES=$(find ./prebuild/${OS} -name "*.a" | tr '\n' ' ')
 fi
-
-echo "Archiver ${ARCHIVER}"
-echo "Files: ${FILES}"
 
 ${ARCHIVER} ${FILES}
 
