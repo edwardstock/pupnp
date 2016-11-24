@@ -37,5 +37,5 @@ else
 	FILES=$(rm -f ./prebuild/${OS}/*.dll.a && find ./prebuild/${OS} -name "*.a")
 fi
 
-$(${ARCHIVER} ${FILES})
+`${ARCHIVER} ${FILES}`
 
