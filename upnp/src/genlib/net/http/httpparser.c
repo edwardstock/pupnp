@@ -1756,7 +1756,7 @@ parser_parse_entity_until_close(INOUT http_parser_t *parser) {
 * 	 PARSE_FAILURE
 *	 PARSE_SUCCESS	-- no more reading to do
 ************************************************************************/
-UPNP_INLINE parse_status_t
+parse_status_t
 parser_get_entity_read_method(INOUT http_parser_t *parser) {
 	http_message_t *hmsg = &parser->msg;
 	int response_code;
@@ -1857,7 +1857,7 @@ parser_get_entity_read_method(INOUT http_parser_t *parser) {
 * 	 PARSE_INCOMPLETE_ENTITY
 *	 PARSE_SUCCESS	-- no more reading to do
 ************************************************************************/
-UPNP_INLINE parse_status_t
+parse_status_t
 parser_parse_entity(INOUT http_parser_t *parser) {
 	parse_status_t status;
 
