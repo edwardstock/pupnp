@@ -40,7 +40,7 @@
  * \brief Implements the sockets functionality.
  */
 
-#include "../../include/sock.h"
+#include "sock.h"
 
 #ifndef MSG_NOSIGNAL
 #define MSG_NOSIGNAL 0

@@ -26,8 +26,8 @@
 
  */
 
-#include "../include/global.h"
-#include "../include/md5.h"
+#include "global.h"
+#include "md5.h"
 
 /*
    Constants for MD5Transform routine. 

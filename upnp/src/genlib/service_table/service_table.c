@@ -38,8 +38,8 @@
 * service 
 ************************************************************************/
 
-#include "../../include/config.h"
-#include "../../include/service_table.h"
+#include "config.h"
+#include "service_table.h"
 
 #ifdef INCLUDE_DEVICE_APIS
 
@@ -378,7 +378,7 @@ FindServiceControlURLPath(service_table *table,
 *
 *	Note :
 ************************************************************************/
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void printService(
 	service_info *service,
 	Upnp_LogLevel level,
@@ -435,7 +435,7 @@ void printService(
 *
 *	Note :
 ************************************************************************/
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void printServiceList(
 	service_info * service,
 	Upnp_LogLevel level,
@@ -494,7 +494,7 @@ void printServiceList(
 *
 *	Note :
 ************************************************************************/
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void printServiceTable(
 	service_table * table,
 	Upnp_LogLevel level,

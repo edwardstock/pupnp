@@ -1,17 +1,11 @@
-
-
 /*!
  * \file
  */
 
-typedef int make_iso_compiler_happy;
-#ifdef DEBUG
-void IxmlPrintf(
-	const char *DbgFileName,
-	int DbgLineNo,
-	const char *FunctionName,
-	const char *FmtStr,
-	...)
+#include "ixmldebug.h"
+
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
+void IxmlPrintf(const char *DbgFileName, int DbgLineNo, const char *FunctionName, const char *FmtStr, ...)
 {
 	va_list ArgList;
 	

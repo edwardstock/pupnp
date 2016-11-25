@@ -1,8 +1,8 @@
 
-#include "../include/config.h"
+#include "config.h"
 #if EXCLUDE_SOAP == 0
 
-#include "../include/soaplib.h"
+#include "soaplib.h"
 
 const char *ContentTypeHeader =
 	"CONTENT-TYPE: text/xml; charset=\"utf-8\"\r\n";

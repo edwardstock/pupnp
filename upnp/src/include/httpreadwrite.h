@@ -83,11 +83,11 @@ int http_FixUrl(
  */
 int http_FixStrUrl(
 	/*! [in] Character string as a URL. */
-	const char *urlstr,
+    const char *urlString,
 	/*! [in] Length of the character string. */
-	size_t urlstrlen,
+    size_t urlLength,
 	/*! [out] Fixed and corrected URL. */
-	uri_type *fixed_url);
+    uri_type *fixedUrl);
 
 /*!
  * \brief Gets destination address from URL and then connects to the

@@ -38,18 +38,17 @@
  * \file
  */
 
-#include "../include/config.h"
+#include "config.h"
 
-#include "../include/upnputil.h"
+#include "upnputil.h"
 
 #ifdef INCLUDE_CLIENT_APIS
 #if EXCLUDE_SSDP == 0
 
-#include "../include/httpparser.h"
+#include "httpparser.h"
 #include "ssdp_ResultData.h"
-#include "../include/ssdplib.h"
-#include "../include/statcodes.h"
-#include "../include/upnpapi.h"
+#include "ssdplib.h"
+#include "upnpapi.h"
 
 #ifdef WIN32
 	#ifndef snprintf

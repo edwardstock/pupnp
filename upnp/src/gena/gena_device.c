@@ -34,19 +34,16 @@
  * \file
  */
 
-#include "../include/config.h"
+#include "config.h"
 
 #if EXCLUDE_GENA == 0
 #ifdef INCLUDE_DEVICE_APIS
 
-#include <assert.h>
-
-#include "../include/gena.h"
-#include "../include/httpreadwrite.h"
-#include "../include/ssdplib.h"
-#include "../include/statcodes.h"
-#include "../include/upnpapi.h"
-#include "../include/uuid.h"
+#include "gena.h"
+#include "httpreadwrite.h"
+#include "ssdplib.h"
+#include "upnpapi.h"
+#include "uuid.h"
 
 #ifdef WIN32
 	#define snprintf _snprintf

@@ -47,7 +47,6 @@
 #ifdef WIN32
 #define snprintf _snprintf
 #endif
-#include <assert.h>
 
 #include "../../../include/uri.h"
 #include "../../../include/upnpapi.h"
@@ -237,7 +236,7 @@ void free_URL_list(URL_list *list) {
 	list->size = (size_t) 0;
 }
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void print_uri(uri_type *in)
 {
 	print_token(&in->scheme);
@@ -247,7 +246,7 @@ void print_uri(uri_type *in)
 }
 #endif /* DEBUG */
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void print_token(token * in)
 {
 	size_t i = 0;
@@ -518,7 +517,7 @@ int remove_dots(char *buf, size_t size) {
 			while (buf < out)
 				if (*--out == '/')
 					break;
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 			if (out < in)
 			out[0] = '\0';
 #endif
@@ -535,7 +534,7 @@ int remove_dots(char *buf, size_t size) {
 			/* move first segment up to, but not including, the next '/' character */
 			while (in < max && in[0] != '/' && !is_end_path(in[0]))
 				*out++ = *in++;
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 			if (out < in)
 			out[0] = '\0';
 #endif

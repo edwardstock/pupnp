@@ -38,7 +38,7 @@
  */
 
 
-#include "../../include/upnp_timeout.h"
+#include "upnp_timeout.h"
 
 #include <stdlib.h> /* for free() */
 

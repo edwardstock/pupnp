@@ -29,14 +29,13 @@
  *
  ******************************************************************************/
 
-#include "../include/config.h"
+#include "config.h"
 #if EXCLUDE_GENA == 0
-#include "../include/gena.h"
-#include "../include/gena_device.h"
-#include "../include/gena_ctrlpt.h"
+#include "gena.h"
+#include "gena_device.h"
+#include "gena_ctrlpt.h"
 
-#include "../include/httpreadwrite.h"
-#include "../include/statcodes.h"
+#include "httpreadwrite.h"
 
 /************************************************************************
 * Function : error_respond									

@@ -31,17 +31,16 @@
  ******************************************************************************/
 
 
-#include "../include/config.h"
+#include "config.h"
 
 #if EXCLUDE_GENA == 0
 #ifdef INCLUDE_CLIENT_APIS
 
-#include "../include/gena.h"
-#include "../include/httpreadwrite.h"
-#include "../include/parsetools.h"
-#include "../include/statcodes.h"
-#include "../include/uuid.h"
-#include "../include/upnpapi.h"
+#include "gena.h"
+#include "httpreadwrite.h"
+#include "parsetools.h"
+#include "uuid.h"
+#include "upnpapi.h"
 
 #ifdef WIN32
 	#define snprintf _snprintf

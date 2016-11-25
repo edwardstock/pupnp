@@ -34,8 +34,8 @@
 *	conversion functions 
 ************************************************************************/
 
-#include "../../include/strintmap.h"
-#include "../../include/membuffer.h"
+#include "strintmap.h"
+#include "membuffer.h"
 
 /************************************************************************
 *	Function :	map_str_to_int

@@ -15,7 +15,7 @@
  * \brief UpnpString object implementation.
  */
 
-#include "../include/config.h"
+#include "config.h"
 
 #include "UpnpString.h"
 
@@ -42,7 +42,7 @@ static size_t strnlen(const char *s, size_t n)
 #endif /* WIN32 */
 
 /* strndup() is a GNU extension. */
-#if !HAVE_STRNDUP || defined(WIN32)
+#if (!defined(HAVE_STRNDUP) || defined(WIN32)) && __DARWIN_C_LEVEL < 200809L
 static char *strndup(const char *__string, size_t __n) {
 	size_t strsize = strnlen(__string, __n);
 	char *newstr = (char *) malloc(strsize + 1);

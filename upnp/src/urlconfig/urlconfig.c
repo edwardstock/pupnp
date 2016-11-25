@@ -34,15 +34,13 @@
  * \file
  */
 
-#include "../include/config.h"
+#include "config.h"
 
-#include "../include/membuffer.h"
+#include "membuffer.h"
 #include "upnpdebug.h"
-#include "../include/uri.h"
-#include "../include/urlconfig.h"
-#include "../include/webserver.h"
-
-#include <assert.h>
+#include "uri.h"
+#include "urlconfig.h"
+#include "webserver.h"
 
 #ifdef _MSC_VER
 	#define snprintf _snprintf

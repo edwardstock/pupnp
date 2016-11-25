@@ -46,14 +46,13 @@
 	#endif
 #endif /* WIN32 */
 
-#include "../include/config.h"
+#include "config.h"
 
 #if EXCLUDE_SSDP == 0
 
-#include "../include/ssdplib.h"
+#include "ssdplib.h"
 
-#include "../include/ThreadPool.h"
-#include "../include/upnpapi.h"
+#include "upnpapi.h"
 
 #define MAX_TIME_TOREAD  45
 

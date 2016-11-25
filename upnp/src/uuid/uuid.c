@@ -23,7 +23,7 @@
  * \file
  */
 
-#include "../include/uuid.h"
+#include "uuid.h"
 
 /* various forward declarations. */
 static int read_state(uint16_t *clockseq,

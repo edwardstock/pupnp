@@ -31,7 +31,7 @@
  **************************************************************************/
 
 
-#include "../include/config.h"
+#include "config.h"
 
 
 /*!
@@ -47,7 +47,7 @@
 #include "upnp.h"
 #include "upnptools.h"
 
-#include "../include/uri.h"
+#include "uri.h"
 
 
 /*! Maximum action header buffer length. */

@@ -1,6 +1,7 @@
 #ifndef INET_PTON
 #define INET_PTON
 
+typedef int make_iso_compiler_happy;
 #ifdef WIN32
 
 	#ifdef UPNP_ENABLE_IPV6

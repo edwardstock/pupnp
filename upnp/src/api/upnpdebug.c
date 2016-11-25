@@ -34,7 +34,9 @@
  */
 
 typedef int make_iso_compiler_happy;
-#ifdef DEBUG
+#include "upnp.h"
+#include "upnpdebug.h"
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 
 /*! Mutex to synchronize all the log file opeartions in the debug mode */
 static ithread_mutex_t GlobalDebugMutex;
@@ -125,13 +127,17 @@ int DebugAtThisLevel(Upnp_LogLevel DLevel, Dbg_Module Module)
 }
 
 void UpnpPrintf(Upnp_LogLevel DLevel,
-		Dbg_Module Module,
-		const char *DbgFileName, int DbgLineNo, const char *FmtStr, ...)
+                Dbg_Module Module,
+                const char *DbgFileName,
+                int DbgLineNo,
+                const char *FmtStr,
+                ...)
 {
 	va_list ArgList;
 
 	if (!DebugAtThisLevel(DLevel, Module))
 		return;
+
 	ithread_mutex_lock(&GlobalDebugMutex);
 	va_start(ArgList, FmtStr);
 	if (!DEBUG_TARGET) {
@@ -142,16 +148,14 @@ void UpnpPrintf(Upnp_LogLevel DLevel,
 	} else {
 		if (ErrFileHnd && DLevel == UPNP_CRITICAL) {
 			if (DbgFileName) {
-				UpnpDisplayFileAndLine(ErrFileHnd, DbgFileName,
-							   DbgLineNo);
+				UpnpDisplayFileAndLine(ErrFileHnd, DbgFileName, DbgLineNo);
 			}
 			vfprintf(ErrFileHnd, FmtStr, ArgList);
 			fflush(ErrFileHnd);
 		}
 		if (InfoFileHnd) {
 			if (DbgFileName) {
-				UpnpDisplayFileAndLine(InfoFileHnd, DbgFileName,
-							   DbgLineNo);
+				UpnpDisplayFileAndLine(InfoFileHnd, DbgFileName, DbgLineNo);
 			}
 			vfprintf(InfoFileHnd, FmtStr, ArgList);
 			fflush(InfoFileHnd);
@@ -163,18 +167,22 @@ void UpnpPrintf(Upnp_LogLevel DLevel,
 
 FILE *UpnpGetDebugFile(Upnp_LogLevel DLevel, Dbg_Module Module)
 {
-	FILE *ret;
-
 	if (!DebugAtThisLevel(DLevel, Module))
-		ret = NULL;
-	if (!DEBUG_TARGET)
-		ret = stdout;
-	else if (DLevel == UPNP_CRITICAL)
-		ret = ErrFileHnd;
-	else
-		ret = InfoFileHnd;
+		return NULL;
 
-	return ret;
+	return stdout;
+//	FILE *ret;
+//
+//	if (!DebugAtThisLevel(DLevel, Module))
+//		ret = NULL;
+//	if (!DEBUG_TARGET)
+//		ret = stdout;
+//	else if (DLevel == UPNP_CRITICAL)
+//		ret = ErrFileHnd;
+//	else
+//		ret = InfoFileHnd;
+//
+//	return ret;
 }
 
 #ifdef WIN32

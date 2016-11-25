@@ -34,20 +34,17 @@
  * \file
  */
 
-#include "../include/config.h"
+#include "config.h"
 
 #ifdef INCLUDE_DEVICE_APIS
 #if EXCLUDE_SOAP == 0
 
-#include "../include/httpparser.h"
-#include "../include/httpreadwrite.h"
-#include "../include/parsetools.h"
-#include "../include/soaplib.h"
-#include "../include/ssdplib.h"
-#include "../include/statcodes.h"
-#include "../include/upnpapi.h"
-
-#include <assert.h>
+#include "httpparser.h"
+#include "httpreadwrite.h"
+#include "parsetools.h"
+#include "soaplib.h"
+#include "ssdplib.h"
+#include "upnpapi.h"
 
 #ifdef WIN32
 	#define snprintf _snprintf

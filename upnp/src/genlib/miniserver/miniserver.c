@@ -30,7 +30,7 @@
  *
  **************************************************************************/
 
-#include "../../include/config.h"
+#include "config.h"
 
 #if EXCLUDE_MINISERVER == 0
 
@@ -47,13 +47,11 @@
  *
  */
 
-#include "../../include/miniserver.h"
+#include "miniserver.h"
 
-#include "../../include/httpreadwrite.h"
-#include "../../include/ssdplib.h"
-#include "../../include/statcodes.h"
-#include "ThreadPool.h"
-#include "../../include/upnpapi.h"
+#include "httpreadwrite.h"
+#include "ssdplib.h"
+#include "upnpapi.h"
 
 /*! . */
 #define APPLICATION_LISTENING_PORT 49152

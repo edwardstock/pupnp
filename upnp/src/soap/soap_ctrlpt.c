@@ -29,20 +29,18 @@
  *
  ******************************************************************************/
 
-#include "../include/config.h"
+#include "config.h"
 #ifdef INCLUDE_CLIENT_APIS
 #if EXCLUDE_SOAP == 0
 
-#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../include/miniserver.h"
-#include "../include/httpreadwrite.h"
-#include "../include/statcodes.h"
-#include "../include/parsetools.h"
-#include "../include/upnpapi.h"
-#include "../include/soaplib.h"
+#include "miniserver.h"
+#include "httpreadwrite.h"
+#include "parsetools.h"
+#include "upnpapi.h"
+#include "soaplib.h"
 
 #define SOAP_ACTION_RESP    1
 #define SOAP_VAR_RESP        2

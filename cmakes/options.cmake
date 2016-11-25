@@ -1,11 +1,11 @@
 include(FeatureSummary)
 
 option(ENABLE_STATIC "Build static library" OFF)
-option(ENABLE_DEBUG "enable extra debugging code" FALSE)
+option(ENABLE_DEBUG "enable extra debugging code" OFF)
 option(ENABLE_CLIENT "enable control point code (client)" ON)
 option(ENABLE_DEVICE "device specific code" ON)
 option(ENABLE_IPV6 "enable ipv6 support" OFF)
-option(ENABLE_OPENSSL "enable ipv6 support" OFF)
+option(ENABLE_OPENSSL "enable openssl support" OFF)
 option(ENABLE_BLOCKING_TCP "blocking TCP connections" OFF)
 option(ENABLE_POST_WRITE "enable write to the filesystem on otherwise" OFF)
 option(ENABLE_UNSPECIFIED_SERVER "enable unspecified SERVER header" OFF)

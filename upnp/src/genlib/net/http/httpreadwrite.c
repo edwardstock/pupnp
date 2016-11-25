@@ -36,16 +36,12 @@
  * Purpose: This file defines the functionality making use of the http.
  * It defines functions to receive messages, process messages, send messages.
  */
-#include "upnpconfig.h"
 #include "../../../include/config.h"
 #include "../../../include/httpreadwrite.h"
 
 #include "../../../include/upnpapi.h"
-#include "../../../include/statcodes.h"
 #include "UpnpIntTypes.h"
 #include "../../../include/webserver.h"
-
-#include <assert.h>
 
 #ifdef WIN32
 	#ifndef fseeko
@@ -132,10 +128,7 @@ static int Check_Connect_And_Wait_Connection(
 }
 #endif /* UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS */
 
-static int private_connect(
-	SOCKET sockfd,
-	const struct sockaddr *serv_addr,
-	socklen_t addrlen) {
+static int private_connect(SOCKET sockfd, const struct sockaddr *serv_addr, socklen_t addrlen) {
 #ifndef UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
 	int ret = sock_make_no_blocking(sockfd);
 	if (ret != -1) {
@@ -182,17 +175,14 @@ int http_FixUrl(IN uri_type *url, OUT uri_type *fixed_url) {
 	return UPNP_E_SUCCESS;
 }
 
-int http_FixStrUrl(
-	IN const char *urlstr,
-	IN size_t urlstrlen,
-	OUT uri_type *fixed_url) {
+int http_FixStrUrl(IN const char *urlString, IN size_t urlLength, OUT uri_type *fixedUrl) {
 	uri_type url;
 
-	if (parse_uri(urlstr, urlstrlen, &url) != HTTP_SUCCESS) {
+	if (parse_uri(urlString, urlLength, &url) != HTTP_SUCCESS) {
 		return UPNP_E_INVALID_URL;
 	}
 
-	return http_FixUrl(&url, fixed_url);
+	return http_FixUrl(&url, fixedUrl);
 }
 
 /************************************************************************
@@ -210,9 +200,7 @@ int http_FixStrUrl(
  *	UPNP_E_OUTOF_SOCKET
  *	UPNP_E_SOCKET_CONNECT on error
  ************************************************************************/
-SOCKET http_Connect(
-	IN uri_type *destination_url,
-	OUT uri_type *url) {
+SOCKET http_Connect(IN uri_type *destination_url, OUT uri_type *url) {
 	SOCKET connfd;
 	socklen_t sockaddr_len;
 	int ret_connect;
@@ -220,8 +208,7 @@ SOCKET http_Connect(
 
 	http_FixUrl(destination_url, url);
 
-	connfd = socket((int) url->hostport.IPaddress.ss_family,
-	                SOCK_STREAM, 0);
+	connfd = socket((int) url->hostport.IPaddress.ss_family, SOCK_STREAM, 0);
 	if (connfd == INVALID_SOCKET) {
 		return (SOCKET) (UPNP_E_OUTOF_SOCKET);
 	}
@@ -643,8 +630,8 @@ int http_Download(IN const char *url_str,
 	char *urlPath = alloca(strlen(url_str) + (size_t) 1);
 
 	/*ret_code = parse_uri( (char*)url_str, strlen(url_str), &url ); */
-	UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__,
-	           "DOWNLOAD URL : %s\n", url_str);
+	UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__, "DOWNLOAD URL : %s\n", url_str);
+
 	ret_code = http_FixStrUrl((char *) url_str, strlen(url_str), &url);
 	if (ret_code != UPNP_E_SUCCESS)
 		return ret_code;
@@ -970,7 +957,8 @@ int http_OpenHttpPost(
 	IN OUT void **Handle,
 	IN const char *contentType,
 	IN int contentLength,
-	IN int timeout) {
+	IN int timeout
+) {
 	int ret_code;
 	size_t sockaddr_len;
 	SOCKET tcp_connection;
@@ -978,30 +966,35 @@ int http_OpenHttpPost(
 	http_post_handle_t *handle = NULL;
 	uri_type url;
 
-	if (!url_str || !Handle || !contentType)
+	if (!url_str || !Handle || !contentType) {
 		return UPNP_E_INVALID_PARAM;
+	}
+
 	*Handle = handle;
-	ret_code = MakePostMessage(url_str, &request, &url,
-	                           contentLength, contentType);
-	if (ret_code != UPNP_E_SUCCESS)
+	ret_code = MakePostMessage(url_str, &request, &url, contentLength, contentType);
+	if (ret_code != UPNP_E_SUCCESS) {
 		return ret_code;
+	}
+
 	handle = malloc(sizeof(http_post_handle_t));
 	if (!handle)
 		return UPNP_E_OUTOF_MEMORY;
+
 	handle->contentLength = contentLength;
-	tcp_connection = socket((int) url.hostport.IPaddress.ss_family,
-	                        SOCK_STREAM, 0);
+	tcp_connection = socket((int) url.hostport.IPaddress.ss_family, SOCK_STREAM, 0);
 	if (tcp_connection == INVALID_SOCKET) {
 		ret_code = UPNP_E_SOCKET_ERROR;
 		goto errorHandler;
 	}
+
 	if (sock_init(&handle->sock_info, tcp_connection) != UPNP_E_SUCCESS) {
 		sock_destroy(&handle->sock_info, SD_BOTH);
 		ret_code = UPNP_E_SOCKET_ERROR;
 		goto errorHandler;
 	}
-	sockaddr_len = url.hostport.IPaddress.ss_family == AF_INET6 ?
-	               sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in);
+
+	sockaddr_len =
+		url.hostport.IPaddress.ss_family == AF_INET6 ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in);
 	ret_code = private_connect(handle->sock_info.socket,
 	                           (struct sockaddr *) &(url.hostport.IPaddress),
 	                           (socklen_t) sockaddr_len);

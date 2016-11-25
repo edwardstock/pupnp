@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_LEGACY_CYGWIN_WIN32 1)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 option(CROSS_COMPILE_WIN32 "Whether to cross-compile win32 lib" OFF)
 
 if (CROSS_COMPILE_WIN32)
@@ -20,6 +22,12 @@ set(CMAKE_SYSTEM_PREFIX_PATH ${CMAKE_PREFIX_PATH})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wfatal-errors -Wno-long-long -pedantic")
+
+if (NOT MINGW OR NOT CYGWIN)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -fPIC")
+	set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -m64 -fPIC")
+endif ()
+
 get_cmake_property(_variableNames VARIABLES)
 
 
@@ -32,14 +40,24 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/prebuild)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_PREFIX_PATH}/include)
-include_directories("${PROJECT_INCLUDE_DIR}")
-include_directories("${PROJECT_SOURCE_DIR}")
+include_directories(${PROJECT_INCLUDE_DIR})
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/upnp/src/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/ixml/src)
 
 if (ENABLE_STATIC)
 	set(LIB_BUILD_TYPE STATIC)
 else ()
 	set(LIB_BUILD_TYPE SHARED)
 endif ()
+
+if (NOT APPLE)
+	set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+	set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_C_FLAGS} -static-libgcc -s")
+	set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS} -static-libgcc -static-libstdc++ -s")
+endif ()
+
 
 include(cmakes/autoconfig.cmake)
 include(cmakes/options.cmake)

@@ -21,7 +21,7 @@
  * \file
  */
 
-#include "../include/sysdep.h"
+#include "sysdep.h"
 
 
 /*!

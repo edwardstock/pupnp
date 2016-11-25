@@ -3,6 +3,9 @@
 #ifndef IXMLDEBUG_H
 #define IXMLDEBUG_H
 
+#include <stdarg.h>
+#include <stdio.h>
+
 #include "ixml.h"
 #include "UpnpGlobal.h"
 
@@ -18,8 +21,8 @@
  * \brief Prints the debug statement either on the standard output or log file
  * along with the information from where this debug statement is coming.
  */
-#ifdef DEBUG
-void IxmlPrintf(
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
+EXPORT_SPEC void IxmlPrintf(
 	/*! [in] The file name, usually __FILE__. */
 	const char *DbgFileName,
 	/*! [in] The line number, usually __LINE__ or a variable that got the
@@ -47,7 +50,7 @@ static UPNP_INLINE void IxmlPrintf(const char *FmtStr, ...) {
 /*!
  * \brief Print the node names and values of a XML tree.
  */
-#ifdef DEBUG
+#if defined(DEBUG) || defined(ENABLE_DEBUG)
 void printNodes(
 	/*! [in] The root of the tree to print. */
 	IXML_Node *tmpRoot,

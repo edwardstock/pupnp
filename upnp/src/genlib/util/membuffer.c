@@ -40,7 +40,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../include/membuffer.h"
+#include "membuffer.h"
 
 char *str_alloc(const char *str, size_t str_len) {
 	char *s;

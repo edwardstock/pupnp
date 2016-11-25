@@ -38,8 +38,8 @@
  ************************************************************************/
 
 
-#include "../../include/config.h"
-#include "../../include/client_table.h"
+#include "config.h"
+#include "client_table.h"
 
 #ifdef INCLUDE_CLIENT_APIS
 #if EXCLUDE_GENA == 0
